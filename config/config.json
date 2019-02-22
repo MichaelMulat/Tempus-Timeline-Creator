@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "exampledb",
+    "password": "boosk123",
+    "database": "timeline_db",
     "host": "localhost",
     "dialect": "mysql"
   },
