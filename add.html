@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>World WarII</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>World War II</h1>
+      <h3>History of World War II</h3>
+      <hr>
+      <a href="/"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span> View Characters</button></a>
+    </div>
+    <div class="row">
+
+      <div class="col-12">
+
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Timeline</strong></h3>
+          </div>
+          <div class="card-body">
+            <form method="POST" role="form">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+
+              <div class="form-group">
+                <label for="event">Event</label>
+                <input type="text" class="form-control" id="event">
+              </div>
+
+              <div class="form-group">
+                <label for="event-type">Event Type</label>
+                <input type="text" class="form-control" id="event-type">
+              </div>
+
+              <div class="form-group">
+                <label for="start-date">Start Date</label>
+                <input type="text" class="form-control" id="start-date">
+              </div>
+
+              <div class="form-group">
+                <label for="end-date">End Date</label>
+                <input type="text" class="form-control" id="end-date">
+              </div>
+
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="Location">
+              </div>
+
+              <div class="form-group">
+                <label for="color">Color for Event</label>
+                <input type="text" class="form-control" id="color">
+              </div>
+
+              <div class="form-group">
+                <label for="image-url">Image URL</label>
+                <input type="text" class="form-control" id="image-url">
+              </div>
+
+              <div class="form-group">
+                <label for="Source">Source</label>
+                <input type="text" class="form-control" id="source">
+              </div>
+
+
+            </form>
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Question: What does this code do?
+    $("#add-btn").on("click", function(event) {
+      event.preventDefault();
+      var newCharacter = {
+        name: $("#name").val().trim(),
+        event: $("#role").val().trim(),
+        eventType: $("#event-type").val().trim(),
+        startDate: $("#start-date").val().trim(),
+        endDate: $("#end-date").val().trim(),
+        location: $("#location").val().trim(),
+        color: $("color").val().trim(),
+        image: $("image-url").val().trim(),
+        source: $("source").val().trim()
+      };
+
+      // Question: What does this code do??
+      $.post("/api/characters", newCharacter)
+        .then(function(data) {
+          console.log("add.html", data);
+          alert("Adding character...");
+        });
+    });
+  </script>
+
+</body>
+</html>
