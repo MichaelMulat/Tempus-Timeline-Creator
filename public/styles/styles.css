@@ -1,3 +1,29 @@
+#header {
+  text-align: center;
+  background-color: #213857;
+  padding: 10px 0px;
+  border-bottom: solid 2px #0EA59F;
+}
+
+#header #logo {
+  max-width: 200px;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  color: #213857;
+}
+
+.main-btn {
+  background-color: #213857;
+  color: white;
+  /* font-family: 'Fredoka One', cursive; */
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
 .list-group-item {
   line-height: 2.5;
 }

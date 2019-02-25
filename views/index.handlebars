@@ -1,33 +1,76 @@
 <div id="home">
   <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+    <div class="row mt-4" id="top-row">
+      {{!-- Create a new timeline button --}}
+      <div class="col-4">
+        <div class="input-group mb-3 shadow">
+          <input type="text" class="form-control" placeholder="Timeline Name" aria-label="New Timeline title"
+            aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn main-btn" type="button" id="button-addon2" href="/create"><i class="fas fa-plus"></i> Create</button>
           </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+        </div>
+      </div>
+
+      {{!-- Select timeline by category dropdown --}}
+      <div class="col-4">
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle main-btn" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Filter by category
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item" type="button">Fiction</button>
+            <button class="dropdown-item" type="button">Non-Fiction</button>
+            <button class="dropdown-item" type="button">Historical</button>
           </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
+        </div>
+      </div>
+    </div> {{!-- end top-row --}}
+
+
+    {{!-- view cards section --}}
+    <div class="row mt-6">
+
+      <div class="card-columns">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-and-the-chamber-of-secrets-poster-1545148861.jpg"
+            alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Harry Potter Timeline</h5>
+            <p class="card-text">This is another card with title and supporting text below. This card has some
+              additional
+              content to make it slightly taller overall.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top"
+            src="http://img.src.ca/2014/06/04/635x357/140604_3v20c_rci-dday-shore_sn635.jpg"
+            alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">World War 2</h5>
+            <p class="card-text">This is another card with title and supporting text below. This card has some
+              additional content to make it slightly taller overall.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <img class="card-img-top"
+            src="https://www.indiewire.com/wp-content/uploads/2016/12/got-battle-of-the-bastards-1024x682.jpg?w=780"
+            alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Game of Thrones Battles</h5>
+            <p class="card-text">This is another card with title and supporting text below. This card has some
+              additional
+              content to make it slightly taller overall.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+  </div> {{!-- End container --}}
+</div> {{!-- End home --}}
