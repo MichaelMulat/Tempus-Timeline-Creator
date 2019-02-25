@@ -1,2 +1,2 @@
-# project-2
+# Tempus - Online Timeline Creator
 node express group project
