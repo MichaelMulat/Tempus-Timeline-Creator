@@ -2,14 +2,14 @@
   text-align: center;
   background-color: #213857;
   padding: 10px 0px;
-  border-bottom: solid 2px #0EA59F;
+  border-bottom: solid 2px #ffffff;
 }
 
 #header #logo {
   max-width: 200px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4{
   font-family: 'Raleway', sans-serif;
   text-transform: uppercase;
   color: #213857;
@@ -18,12 +18,35 @@ h1, h2, h3, h4 {
 .main-btn {
   background-color: #213857;
   color: white;
+  font-size: 1.5em;
   /* font-family: 'Fredoka One', cursive; */
   font-family: 'Raleway', sans-serif;
   font-weight: 100;
   text-transform: uppercase;
 }
 
+.form-inputs {
+      border-radius: 0;
+    border: 0px;
+    border-bottom: solid #00BCD4;
+}
 .list-group-item {
   line-height: 2.5;
+}
+
+.subheader{
+  background-color: #00BCD4;
+  padding: 4em inherit;
+  margin-bottom: 20px;
+  text-align: center;
+
+}
+
+.subheading {
+   color: #ffffff
+}
+
+.input-group {
+  color: white;
+  background-color: none;
 }
