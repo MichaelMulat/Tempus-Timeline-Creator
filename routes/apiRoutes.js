@@ -1,29 +1,24 @@
 var db = require("../models");
 
-
-module.exports = function (app) {
-  // Get all examples
-  app.get("/api/examples", function (req, res) {
-    db.Example.findAll({}).then(function (dbExamples) {
-      res.json(dbExamples);
+module.exports = function(app) {
+  //get all the timelines in the database
+  app.get("/api/timelines", function(req, res) {
+    db.Timeline.findAll({}).then(function(dbTimeline) {
+      res.json(dbTimeline);
     });
   });
 
-  // Create a new example
-  app.post("/api/examples", function (req, res) {
-    db.Example.create(req.body).then(function (dbExample) {
-      res.json(dbExample);
+  //create a new timeline in the database
+  app.post("/api/timelines", function(req, res) {
+    db.Timeline.create(req.body).then(function(dbTimeline) {
+      res.json(dbTimeline);
     });
   });
 
   // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Example.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function (dbExample) {
-      res.json(dbExample);
-    });
-  });
+  // app.delete("/api/examples/:id", function(req, res) {
+  //   db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
+  //     res.json(dbExample);
+  //   });
+  // });
 };

@@ -1,76 +1,58 @@
 <div id="home">
-  <div class="container">
-    <div class="row mt-4" id="top-row">
-      {{!-- Create a new timeline button --}}
-      <div class="col-4">
-        <div class="input-group mb-3 shadow">
-          <input type="text" class="form-control" placeholder="Timeline Name" aria-label="New Timeline title"
-            aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn main-btn" type="button" id="button-addon2" href="/create"><i class="fas fa-plus"></i> Create</button>
-          </div>
-        </div>
-      </div>
 
-      {{!-- Select timeline by category dropdown --}}
-      <div class="col-4">
-        <div class="btn-group">
-          <button type="button" class="btn btn-secondary dropdown-toggle main-btn" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Filter by category
-          </button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button">Fiction</button>
-            <button class="dropdown-item" type="button">Non-Fiction</button>
-            <button class="dropdown-item" type="button">Historical</button>
-          </div>
+  <div class="jumbotron jumbotron-fluid subheader py-12">
+    <div class="container text-center">
+      <h1 class="display-4 subheading">Online Timeline Maker</h1>
+      <hr>
+      <a href="/create"><button class="btn main-btn" type="button" id="create-timeline"><i class="fas fa-plus"></i>
+          Create A New Timeline</button>
+        </div></a>
+    </div>
+  </div>
+  
+
+  <div class="container">
+    <div class="row">
+      <h2 class="col display-5 ">All Timelines</h2>
+
+      <div class="col align-self-end">
+        <div class="form-group drop-down">
+          <select class="form-control" id="drop-down-select">
+            <option>Fiction</option>
+            <option>Non-fiction</option>
+            <option>Scientific</option>
+            <option>Historical</option>
+            <option>Other</option>
+          </select>
         </div>
       </div>
-    </div> {{!-- end top-row --}}
+    </div>
+    {{!-- Select timeline by category dropdown --}}
+    
 
 
     {{!-- view cards section --}}
     <div class="row mt-6">
 
-      <div class="card-columns">
+      <div class="card-columns offset">
+        {{#each timelines}}
         <div class="card">
-          <img class="card-img-top"
-            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-and-the-chamber-of-secrets-poster-1545148861.jpg"
-            alt="Card image cap">
+          <img class="card-img-top" src="{{imageUrl}}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Harry Potter Timeline</h5>
-            <p class="card-text">This is another card with title and supporting text below. This card has some
-              additional
-              content to make it slightly taller overall.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <h5 class="card-title">
+              <p>{{id}} {{timelineName}}
+            </h5>
+            <p class="card-text">{{description}}</p>
+            <p class="card-text"><small class="text-muted">Created - {{createdAt}}</small></p>
           </div>
         </div>
-
-        <div class="card">
-          <img class="card-img-top"
-            src="http://img.src.ca/2014/06/04/635x357/140604_3v20c_rci-dday-shore_sn635.jpg"
-            alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">World War 2</h5>
-            <p class="card-text">This is another card with title and supporting text below. This card has some
-              additional content to make it slightly taller overall.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-
-        <div class="card">
-          <img class="card-img-top"
-            src="https://www.indiewire.com/wp-content/uploads/2016/12/got-battle-of-the-bastards-1024x682.jpg?w=780"
-            alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Game of Thrones Battles</h5>
-            <p class="card-text">This is another card with title and supporting text below. This card has some
-              additional
-              content to make it slightly taller overall.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
+        {{/each}}
       </div>
     </div>
   </div> {{!-- End container --}}
 </div> {{!-- End home --}}
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
