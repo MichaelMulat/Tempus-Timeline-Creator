@@ -46,6 +46,18 @@ h1, h2, h3, h4{
    color: #ffffff
 }
 
+.create-new-timeline{
+  padding-top: 3em;
+}
+
+.create-new-timeline h3{
+  color: white;
+}
+
+.timeline-data {
+  padding-top: 1em;
+}
+
 .input-group {
   color: white;
   background-color: none;

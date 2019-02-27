@@ -1,25 +1,33 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Load index page
+  // Load index page with tthe timelines
   app.get("/", function(req, res) {
     db.Timeline.findAll({}).then(function(dbTimelines) {
       res.render("index", {
-        msg: "These are our timelines",
         timelines: dbTimelines
       });
     });
   });
 
-  // Load example page and pass in an example by id
-  app.get("/timeline/:id", function(req, res) {
-    db.Example.findOne({
+  // Render all the timelines add timeline page
+  app.get("/create", function(req, res) {
+    db.Timeline.findAll({}).then(function(dbTimelines) {
+      res.render("create", {
+        timelines: dbTimelines
+      });
+    });
+  });
+
+  // Load Timeline page and pass in a timeline by id
+  app.get("/timelines/:id", function(req, res) {
+    db.Timeline.findOne({
       where: {
         id: req.params.id
       }
-    }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
+    }).then(function(dbTimelines) {
+      res.render("timeline", {
+        timelines: dbTimelines
       });
     });
   });
@@ -29,9 +37,16 @@ module.exports = function(app) {
     res.render("timeline");
   });
 
-  // Render add events page
-  app.get("/create", function(req, res) {
-    res.render("create");
+  app.get("/edit/:id", function (req, res) {
+    db.Timeline.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then(function (dbTimelines) {
+      res.render("edit", {
+        timelines: dbTimelines
+      });
+    });
   });
 
   // Render 404 page for any unmatched routes

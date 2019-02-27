@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Event = sequelize.define("Event", {
     event: DataTypes.STRING,
     event_type: DataTypes.STRING,
@@ -8,8 +8,10 @@ module.exports = function(sequelize, DataTypes) {
     color: DataTypes.STRING,
     source: DataTypes.STRING
   });
+
   Event.associate = function(models) {
     Event.belongsTo(models.Timeline);
   };
+
   return Event;
-};
+}
