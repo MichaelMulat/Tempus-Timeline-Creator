@@ -37,23 +37,26 @@
                         <div class="col-4">
 
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Select Category</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Select Category</label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01" id="timeline-category">
+                                        <option selected>Choose...</option>
+                                        <option value="1">Fiction</option>
+                                        <option value="2">Non-fiction</option>
+                                        <option value="3">Scientific</option>
+                                        <option value="4">Historical</option>
+                                        <option value="5">Other</option>
+                                    </select>
                                 </div>
 
-                                <select class="form-control" id="exampleFormControlSelect1" id="timeline-category">
-                                    <option>All</option>
-                                    <option>Fiction</option>
-                                    <option>Non-fiction</option>
-                                    <option>Scientific</option>
-                                    <option>Historical</option>
-                                    <option>Other</option>
-                                </select>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mb-2" id="create-timeline-btn">Create Timeline</button>
+                    <button type="submit" class="btn btn-light mb-2" id="create-timeline-btn">Create Timeline</button>
                 </form>
             </div>
         </div>
@@ -64,92 +67,52 @@
 </div> {{!-- end subheader div --}}
 
 <div class="container">
-    <div class="row">
-        <div class="card">
-            <div class="card-header">{{timeline.id}} {{timeline.timelineName}}</div>
+    <div class="row ">
+        <div class="col ">
+            <ul class="timeline-list">
+                {{#each timelines}}
+                <li class="row d-flex" data_id="{{id}}">
+                    <div class="col-7 mr-auto">
+                        <h5 class="list-title">{{timelineName}}</h5>
+                        <p class="list-text">{{description}}</p>
+
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-primary add-event-btn" href="edit/{{id}}">Add Events</a>
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-primary add-event-btn" href="timelines/{{id}}">View Timeline</a>
+
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-danger delete-timeline-btn"> <i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
         </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-9">
-            <div class="card">
-                <div class="card-header">
-                    <div class="text-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#new-event-modal">+ New Event
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
-{{!-- modal start --}}
-<div class="modal fade" id="new-event-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Create New Event</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" role="form" class="new-event">
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Event Name *" id="event">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Event Type" id="event-type">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="date" class="form-control form-inputs" Placeholder="Start Date *" id="start-date">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="date" class="form-control form-inputs" Placeholder="End Date" id="end-date">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Location" id="Location">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="color" class="form-control form-color-inputs" Placeholder="Label Color" id="color">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="Source">Info Source</label>
-                        <input type="text" class="form-control form-inputs" Placeholder="link url" id="source">
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="event-create-button">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> {{!-- end modal --}}
 
 <script>
 
-    $.ajax({
+    var $deleteTimelineBtn = $("#delete-timeline-btn");
+    function deleteTimeline() {
+        console.log("I was clicked")
+    }
 
-    })
+    $deleteTimelineBtn.on("click", deleteTimeline);
+
     var $createButton = $("#create-timeline-btn");
+
     $createButton.on("click", function (event) {
-        // Create New timeline page
-        event.preventDefault();
-        debugger;
+        var catId = $("#timeline-category").data("id")
+
+        console.log(catId)
         var newTimeline = {
             timelineName: $("#timeline-name")
                 .val()
@@ -159,7 +122,8 @@
                 .trim(),
             imageUrl: $("#timeline-image-url")
                 .val()
-                .trim()
+                .trim(),
+            CategoryId: $("#timeline-category option:selected").val()
         };
 
         console.log(newTimeline);
@@ -169,7 +133,7 @@
             url: "/api/timelines",
             data: newTimeline
         }).then(function () {
-            
+            location.reload();
         });
     });
 

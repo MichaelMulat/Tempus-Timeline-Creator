@@ -18,31 +18,27 @@
       <div class="col align-self-end">
         <div class="form-group drop-down">
           <select class="form-control" id="drop-down-select">
-            <option>Fiction</option>
-            <option>Non-fiction</option>
-            <option>Scientific</option>
-            <option>Historical</option>
-            <option>Other</option>
+            {{#each category}}
+              <option data_id="{{this.id}}">this.category</option>
+            {{/each}}
           </select>
         </div>
       </div>
     </div>
     {{!-- Select timeline by category dropdown --}}
     
-
-
     {{!-- view cards section --}}
     <div class="row mt-6">
-
       <div class="card-columns offset">
         {{#each timelines}}
         <div class="card">
           <img class="card-img-top" src="{{imageUrl}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">
-              <p>{{id}} {{timelineName}}
+              <p> {{timelineName}}
             </h5>
             <p class="card-text">{{description}}</p>
+            <a href="/timeline/{{id}}" class="btn">View</a>
             <p class="card-text"><small class="text-muted">Created - {{createdAt}}</small></p>
           </div>
         </div>

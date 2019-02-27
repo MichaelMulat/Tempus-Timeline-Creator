@@ -4,7 +4,6 @@ var container = document.getElementById('visualization');
 /* $.get('/api/timelines', function(response) {
   var items = new vis.DataSet(response)
   var options = {};
-
   if (container && response && response.length) {
     var timeline = new vis.Timeline(container, items, options);
   }
