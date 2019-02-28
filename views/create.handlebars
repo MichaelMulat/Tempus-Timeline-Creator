@@ -70,6 +70,8 @@
     <div class="row ">
         <div class="col ">
             <ul class="timeline-list">
+
+
                 {{#each timelines}}
                 <li class="row d-flex" data_id="{{id}}">
                     <div class="col-7 mr-auto">
@@ -110,9 +112,10 @@
     var $createButton = $("#create-timeline-btn");
 
     $createButton.on("click", function (event) {
-        var catId = $("#timeline-category").data("id")
+        event.preventDefault();
 
-        console.log(catId)
+        var catId = $("#timeline-category option:selected").val()
+        
         var newTimeline = {
             timelineName: $("#timeline-name")
                 .val()
@@ -126,14 +129,16 @@
             CategoryId: $("#timeline-category option:selected").val()
         };
 
-        console.log(newTimeline);
+        //console.log(newTimeline);
         // Send the POST request.
         $.ajax({
             method: "POST",
             url: "/api/timelines",
             data: newTimeline
-        }).then(function () {
-            location.reload();
+        }).then(function (data) {
+            console.log(data.id)
+            var timeline_id = data.id;
+            window.location.href = "/edit/" + timeline_id;
         });
     });
 
