@@ -7,3 +7,94 @@
     </div>
 
 </div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-event-modal">
+    Add Event
+</button>
+<div class="modal fade" id="new-event-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Create New Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" role="form" class="new-event">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control form-inputs" Placeholder="Event Name *" id="event">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control form-inputs" Placeholder="Event Type" id="event-type">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" class="form-control form-inputs" Placeholder="Start Date *" id="start-date">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" class="form-control form-inputs" Placeholder="End Date" id="end-date">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control form-inputs" Placeholder="Location" id="Location">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="color" class="form-control form-color-inputs" Placeholder="Label Color" id="color">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Source">Info Source</label>
+                        <input type="text" class="form-control form-inputs" Placeholder="link url" id="source">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="event-create-button">Add Event</button>
+            </div>
+        </div>
+    </div>
+</div> {{!-- end modal --}}
+
+<script>
+    var $createEventButton = $("#event-create-button");
+
+    $createEventButton.on("click", function (event) {
+        console.log("button clicked")
+
+        var newEvent = {
+            event: $("#event")
+                .val()
+                .trim(),
+            event_type: $("#event-type")
+                .val()
+                .trim(),
+            start_date: $("#start-date")
+                .val(),
+                
+            end_date: $("end-Date")
+                .val(),
+                
+            location: $("#Location")
+                .val(),
+            color: $("#color")
+                .val(),
+            source: $("#source").val(),
+        };
+
+        console.log(newEvent);
+        // Send the POST request.
+        $.ajax({
+            method: "POST",
+            url: "/api/events/:timeline_id",
+            data: newEvent
+        }).then(function () {
+            //location.reload();
+        });
+    });</script>
