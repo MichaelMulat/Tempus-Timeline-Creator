@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true,              // checks for url format (http://foo.com)
-        notNull: true,            // won't allow null
+        allowNull: false,            // won't allow null
         notEmpty: true,           // don't allow empty strings
       }
     },
@@ -12,7 +12,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true,              // checks for url format (http://foo.com)
-        notNull: true,            // won't allow null
+        allowNull: false,            // won't allow null
         notEmpty: true,           // don't allow empty strings
       }
     },
@@ -20,21 +20,21 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       validate: {
         isDate: true,             // only allow date strings
-        notNull: true,            // won't allow null
+        allowNull: false,            // won't allow null
         notEmpty: true,           // don't allow empty strings
       }
     },
     end_date: {
       type: DataTypes.DATE,
       validate: {
-        notNull: false,            // allow null
+        allowNull: true,            // allow null
         notEmpty: false,           // allow empty strings
       }
     },
     location: {
       type: DataTypes.TEXT,
       validate: {
-        notNull: false,            // allow null
+        allowNull: true,            // allow null
         notEmpty: false,           // allow empty strings
       }
     },
@@ -48,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.TEXT,
       validate: {
         isUrl: true,              // checks for url format (http://foo.com)
-        notNull: false,            // allow null
+        allowNull: true,            // allow null
         notEmpty: false,           // allow empty strings
       }
     }
