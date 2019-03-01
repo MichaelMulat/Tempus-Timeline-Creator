@@ -3,15 +3,21 @@ module.exports = function(sequelize, DataTypes) {
     timelineName: {
       type: DataTypes.TEXT,
       validate: {
-        notNull: true,            // won't allow null
+        allowNull: false,            // won't allow null
         notEmpty: true,           // don't allow empty strings
       }
     },
     description: {
       type: DataTypes.TEXT,
       validate: {
-        notNull: false,            // allow null
+        allowNull: true,            // allow null
         notEmpty: false,           // allow empty strings
+      }
+    },
+    image_url: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true,              // checks for url format (http://foo.com)
       }
     }
   });
