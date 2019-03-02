@@ -1,5 +1,4 @@
-
-    <div class="jumbotron">
+<div class="jumbotron">
         <div class="container">
             <div class="row">
                 <h3 class="display-4">{{timelines.timelineName}}</h3>
@@ -8,5 +7,42 @@
         </div>
         
     </div>
+<div class="container">
+    <div id="visualization" data-id="{{timelines.id}}"></div>
+</div>
 
-<div id="visualization"></div>
+
+<script>
+    /** TIMELINE */
+    var timeline_id = $("#visualization").data("id")
+
+    var container = document.getElementById('visualization');
+
+    // Make ajax get request to endpoint
+    $.get('/api/timelines/' + timeline_id, function (response) {
+        var events = response.Events;
+        var eventData = [];
+        for (i = 0; i < events.length; i++) {
+            var formatedStart = moment(events[i].start_date).format("YYYY-MM-DD"); 
+            var newObj = {
+                id: i + 1,
+                content: events[i].event,
+                start:  formatedStart
+            }
+            eventData.push(newObj);
+        }
+        console.log(eventData);
+
+        var items = new vis.DataSet(eventData)
+
+        console.log(items);
+
+        var options = {};
+
+        if (container && eventData && eventData.length) {
+        var timeline = new vis.Timeline(container, items, options);
+         }
+    });
+
+
+</script>

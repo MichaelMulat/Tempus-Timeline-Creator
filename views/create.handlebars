@@ -1,137 +1,73 @@
-<div class="subheader">
-    <div class="container">
-        <div class="create-new-timeline">
-            <h3>Create a new Timeline</h3>
-            <div class="timeline-data">
-                <form>
-                    {{!-- Start row 1--}}
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Timeline Name</span>
-                                </div>
-                                <input type="text" class="form-control" id="timeline-name">
-                            </div>
-                        </div>
-                        <div class="col-8">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
-                                </div>
-                                <input type="text" class="form-control" id="timeline-description">
-                            </div>
-                        </div>
-                    </div>
-                    {{!-- end row 1--}}
+<div class="subheader splash">
 
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Image url</span>
-                                </div>
-                                <input type="text" class="form-control" id="timeline-image-url">
-                            </div>
-                        </div>
-                        <div class="col-4">
-
-                            <div class="input-group mb-3">
-
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Select Category</label>
-                                    </div>
-                                    <select class="custom-select" id="inputGroupSelect01" id="timeline-category">
-                                        <option selected>Choose...</option>
-                                        <option value="1">Fiction</option>
-                                        <option value="2">Non-fiction</option>
-                                        <option value="3">Scientific</option>
-                                        <option value="4">Historical</option>
-                                        <option value="5">Other</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-light mb-2" id="create-timeline-btn">Create Timeline</button>
-                </form>
-            </div>
-        </div>
-        {{!-- end new timeline --}}
-
-
-    </div>
 </div> {{!-- end subheader div --}}
 
-
-
-<div class="container">
-    <div class="row ">
-        <div class="col ">
-            <ul class="timeline-list">
-
-
-                {{#each timelines}}
-                <li class="row d-flex" data_id="{{id}}">
-                    <div class="col-7 mr-auto">
-                        <h5 class="list-title">{{timelineName}}</h5>
-                        <p class="list-text">{{description}}</p>
-
-                    </div>
-                    <div class="col-2">
-                        <a class="btn btn-primary add-event-btn" href="edit/{{id}}">Add Events</a>
-                    </div>
-                    <div class="col-2">
-                        <a class="btn btn-primary add-event-btn" href="timelines/{{id}}">View Timeline</a>
-
-                    </div>
-                    <div class="col-1">
-                        <button class="btn btn-danger delete-timeline-btn"> <i class="fas fa-trash-alt"></i></button>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
+<div class="container form-card-container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Create a new Timeline</h1>
         </div>
+        <!-- Form content -->
+        <div class="card-body">
+            <!-- Timeline Name input -->
+            <div class="form">
 
+                <div class="md-form">
+                    <input type="text" id="timeline-name" class="form-control">
+                    <label for="timeline-name">Timeline Name (required)</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" id="timeline-description" class="form-control">
+                    <label for="timeline-description">Description (required)</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" id="timeline-image-url" class="form-control">
+                    <label for="timeline-image-url">Image url</label>
+                </div>
+
+                <div class="input-group mb-3">
+                    <select class="custom-select md-form form" id="inputGroupSelect02">
+                        <option data-id="0">Choose a Category</option>
+                        {{#each categories}}
+                        <option data-id="{{id}}">{{category}}</option>
+                        {{/each}}
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button"id="create-category-btn"> + Add Category</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="create-timeline-btn">Create Timeline</button>
+
+            </div>
+
+
+
+        </div>
     </div>
-
-
 </div>
 
 
 
 <script>
 
-
-
-    var $deleteTimelineBtn = $("#delete-timeline-btn");
-    function deleteTimeline() {
-        console.log("I was clicked")
-    }
-
-    $deleteTimelineBtn.on("click", deleteTimeline);
-
     var $createButton = $("#create-timeline-btn");
 
     $createButton.on("click", function (event) {
         event.preventDefault();
 
-        var catId = $("#timeline-category option:selected").val()
-        
+        var name = $("#timeline-name").val().trim()
+        var description = $("#timeline-description").val().trim()
+        var url = $("#timeline-image-url").val().trim()
+        var catId = $('select[name="timeline-category"] option:selected').data('id')
+
         var newTimeline = {
-            timelineName: $("#timeline-name")
-                .val()
-                .trim(),
-            description: $("#timeline-description")
-                .val()
-                .trim(),
-            imageUrl: $("#timeline-image-url")
-                .val()
-                .trim(),
-            CategoryId: $("#timeline-category option:selected").val()
+            timelineName: name,
+            description: description,
+            imageUrl: url,
+            CategoryId: catId
         };
 
         //console.log(newTimeline);

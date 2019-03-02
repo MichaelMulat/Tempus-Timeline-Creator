@@ -1,15 +1,62 @@
 <div class="jumbotron">
     <div class="container">
         <div class="row">
-            <h3 class="display-4">{{timelines.timelineName}}</h3>
-            <h5>{{timelines.description}}</h5>
+            <h3 class="display-4" id="timeline-edit-header" data-id="{{timelines.id}}">
+                {{id}} {{timelines.timelineName}}
+            </h3>
+            <hr>
+            <p>{{timelines.description}}</p>
         </div>
     </div>
 
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-event-modal">
-    Add Event
-</button>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col">
+                    <h4>Events</h4>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-event-modal">
+                        Add Event
+                    </button>
+                    <a type="button" class="btn btn-success" href="/timelines/{{timelines.id}}">
+                        Done
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="event-list list-group">
+
+
+            {{#each timelines.Events}}
+            
+            <li class="list-group-item d-flex justify-content-between align-items-center" data_id="{{id}}">
+                
+                    <h4 class="event-name-div">{{event}}</h4>
+                    <p class="event-type-div">{{event_type}}</p>
+
+                
+                <span class="buttons-for-events">
+                    
+                        <button class="btn btn-primary edit-event-btn"> <i class="fas fa-edit"></i></i></button>
+                    
+                    
+                        <button class="btn btn-danger delete-event-btn"> <i class="fas fa-trash-alt"></i></button>
+                    
+                </span>
+
+            </li>
+            
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+{{!-- MODAL SECTION --}}
 <div class="modal fade" id="new-event-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -44,10 +91,6 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="color" class="form-control form-color-inputs" Placeholder="Label Color" id="color">
-                    </div>
-
-                    <div class="form-group">
                         <label for="Source">Info Source</label>
                         <input type="text" class="form-control form-inputs" Placeholder="link url" id="source">
                     </div>
@@ -63,6 +106,7 @@
 </div> {{!-- end modal --}}
 
 <script>
+
     var $createEventButton = $("#event-create-button");
 
     $createEventButton.on("click", function (event) {
@@ -77,15 +121,17 @@
                 .trim(),
             start_date: $("#start-date")
                 .val(),
-                
+
             end_date: $("end-Date")
                 .val(),
-                
+
             location: $("#Location")
                 .val(),
             color: $("#color")
                 .val(),
-            source: $("#source").val(),
+            source: $("#source")
+                .val(),
+            TimelineId: $("#timeline-edit-header").data("id")
         };
 
         console.log(newEvent);
@@ -95,6 +141,6 @@
             url: "/api/events/:timeline_id",
             data: newEvent
         }).then(function () {
-            //location.reload();
+            location.reload();
         });
     });</script>

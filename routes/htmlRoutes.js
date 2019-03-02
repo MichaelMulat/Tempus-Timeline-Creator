@@ -12,10 +12,8 @@ module.exports = function(app) {
 
   // Render all the timelines add timeline page
   app.get("/create", function(req, res) {
-    db.Timeline.findAll({}).then(function(dbTimelines) {
-      res.render("create", {
-        timelines: dbTimelines
-      });
+    db.Category.findAll({}).then(function(dbCategories) {
+      res.render("create", { categories: dbCategories });
     });
   });
 
@@ -24,7 +22,8 @@ module.exports = function(app) {
     db.Timeline.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [db.Event]
     }).then(function(dbTimelines) {
       res.render("timeline", {
         timelines: dbTimelines
@@ -37,12 +36,13 @@ module.exports = function(app) {
     res.render("timeline");
   });
 
-  app.get("/edit/:id", function (req, res) {
+  app.get("/edit/:id", function(req, res) {
     db.Timeline.findOne({
       where: {
         id: req.params.id
-      }
-    }).then(function (dbTimelines) {
+      },
+      include: [db.Event]
+    }).then(function(dbTimelines) {
       res.render("edit", {
         timelines: dbTimelines
       });
