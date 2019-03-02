@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "ambessa",
+    "password": "boosk123",
     "database": "timeline_db",
     "host": "localhost",
     "dialect": "mysql"
