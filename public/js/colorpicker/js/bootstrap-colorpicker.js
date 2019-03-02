@@ -1,26 +1,23 @@
-/* =========================================================
- * bootstrap-colorpicker.js 
- * http://www.eyecon.ro/bootstrap-colorpicker
- * =========================================================
- * Copyright 2012 Stefan Petre
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ========================================================= */
- 
-!function( $ ) {
-	
+// =========================================================
+// bootstrap-colorpicker.js
+// http://www.eyecon.ro/bootstrap-colorpicker
+// =========================================================
+// Copyright 2012 Stefan Petre
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// =========================================================
+
+!(function($) {
+
 	// Color object
-	
+
 	var Color = function(val) {
 		this.value = {
 			h: 1,
@@ -30,12 +27,12 @@
 		};
 		this.setColor(val);
 	};
-	
+
 	Color.prototype = {
 		constructor: Color,
-		
-		//parse a string to HSB
-		setColor: function(val){
+
+		// parse a string to HSB
+		setColor(val){
 			val = val.toLowerCase();
 			var that = this;
 			$.each( CPGlobal.stringParsers, function( i, parser ) {
@@ -52,26 +49,26 @@
 				}
 			});
 		},
-		
-		setHue: function(h) {
+
+		setHue(h) {
 			this.value.h = 1- h;
 		},
-		
-		setSaturation: function(s) {
+
+		setSaturation(s) {
 			this.value.s = s;
 		},
-		
-		setLightness: function(b) {
+
+		setLightness(b) {
 			this.value.b = 1- b;
 		},
-		
-		setAlpha: function(a) {
+
+		setAlpha(a) {
 			this.value.a = parseInt((1 - a)*100, 10)/100;
 		},
-		
+
 		// HSBtoRGB from RaphaelJS
 		// https://github.com/DmitryBaranovskiy/raphael/
-		toRGB: function(h, s, b, a) {
+		toRGB(h, s, b, a) {
 			if (!h) {
 				h = this.value.h;
 				s = this.value.s;
@@ -95,13 +92,13 @@
 				a: a||this.value.a
 			};
 		},
-		
-		toHex: function(h, s, b, a){
+
+		toHex(h, s, b, a){
 			var rgb = this.toRGB(h, s, b, a);
 			return '#'+((1 << 24) | (parseInt(rgb.r) << 16) | (parseInt(rgb.g) << 8) | parseInt(rgb.b)).toString(16).substr(1);
 		},
-		
-		toHSL: function(h, s, b, a){
+
+		toHSL(h, s, b, a){
 			if (!h) {
 				h = this.value.h;
 				s = this.value.s;
@@ -127,54 +124,55 @@
 			};
 		}
 	};
-	
+
 	// Picker object
-	
-	var Colorpicker = function(element, options){
+
+	var Colorpicker = function(element, options) {
 		this.element = $(element);
-		var format = options.format||this.element.data('color-format')||'hex';
+		var format = options.format || this.element.data("color-format") || 'hex';
+
 		this.format = CPGlobal.translateFormats[format];
-		this.isInput = this.element.is('input');
-		this.component = this.element.is('.color') ? this.element.find('.add-on') : false;
-		
-		this.picker = $(CPGlobal.template)
-							.appendTo('body')
-							.on('mousedown', $.proxy(this.mousedown, this));
-		
+		this.isInput = this.element.is("input");
+		this.component = this.element.is(".color") ? this.element.find(".add-on") : false;
+
+		this.picker = $(CPGlobal.template).
+							appendTo("body").
+							on("mousedown", $.proxy(this.mousedown, this));
+
 		if (this.isInput) {
 			this.element.on({
-				'focus': $.proxy(this.show, this),
-				'keyup': $.proxy(this.update, this)
+				"focus": $.proxy(this.show, this),
+				"keyup": $.proxy(this.update, this)
 			});
-		} else if (this.component){
+		} else if (this.component) {
 			this.component.on({
-				'click': $.proxy(this.show, this)
+				"click": $.proxy(this.show, this)
 			});
 		} else {
 			this.element.on({
-				'click': $.proxy(this.show, this)
+				"click": $.proxy(this.show, this)
 			});
 		}
-		if (format === 'rgba' || format === 'hsla') {
-			this.picker.addClass('alpha');
-			this.alpha = this.picker.find('.colorpicker-alpha')[0].style;
+		if (format === "rgba" || format === "hsla") {
+			this.picker.addClass("alpha");
+			this.alpha = this.picker.find(".colorpicker-alpha")[0].style;
 		}
-		
-		if (this.component){
-			this.picker.find('.colorpicker-color').hide();
-			this.preview = this.element.find('i')[0].style;
+
+		if (this.component) {
+			this.picker.find(".colorpicker-color").hide();
+			this.preview = this.element.find("i")[0].style;
 		} else {
-			this.preview = this.picker.find('div:last')[0].style;
+			this.preview = this.picker.find("div:last")[0].style;
 		}
-		
-		this.base = this.picker.find('div:first')[0].style;
+
+		this.base = this.picker.find("div:first")[0].style;
 		this.update();
 	};
-	
+
 	Colorpicker.prototype = {
 		constructor: Colorpicker,
-		
-		show: function(e) {
+
+		show(e) {
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -193,8 +191,8 @@
 				color: this.color
 			});
 		},
-		
-		update: function(){
+
+		update(){
 			this.color = new Color(this.isInput ? this.element.prop('value') : this.element.data('color'));
 			this.picker.find('i')
 				.eq(0).css({left: this.color.value.s*100, top: 100 - this.color.value.b*100}).end()
@@ -202,8 +200,8 @@
 				.eq(2).css('top', 100 * (1 - this.color.value.a));
 			this.previewColor();
 		},
-		
-		setValue: function(newColor) {
+
+		setValue(newColor) {
 			this.color = new Color(newColor);
 			this.picker.find('i')
 				.eq(0).css({left: this.color.value.s*100, top: 100 - this.color.value.b*100}).end()
@@ -215,8 +213,8 @@
 				color: this.color
 			});
 		},
-		
-		hide: function(){
+
+		hide(){
 			this.picker.hide();
 			$(window).off('resize', this.place);
 			if (!this.isInput) {
@@ -235,17 +233,17 @@
 				color: this.color
 			});
 		},
-		
-		place: function(){
+
+		place(){
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
 				left: offset.left
 			});
 		},
-		
-		//preview color change
-		previewColor: function(){
+
+		// preview color change
+		previewColor(){
 			try {
 				this.preview.backgroundColor = this.format.call(this);
 			} catch(e) {
@@ -258,12 +256,12 @@
 				this.alpha.backgroundColor = this.color.toHex();
 			}
 		},
-		
+
 		pointer: null,
-		
+
 		slider: null,
-		
-		mousedown: function(e){
+
+		mousedown(e){
 			e.stopPropagation();
 			e.preventDefault();
 			
@@ -300,8 +298,8 @@
 			}
 			return false;
 		},
-		
-		mousemove: function(e){
+
+		mousemove(e){
 			e.stopPropagation();
 			e.preventDefault();
 			var left = Math.max(
@@ -333,8 +331,8 @@
 			});
 			return false;
 		},
-		
-		mouseup: function(e){
+
+		mouseup(e){
 			e.stopPropagation();
 			e.preventDefault();
 			$(document).off({
@@ -343,80 +341,89 @@
 			});
 			return false;
 		}
-	}
+	};
 
-	$.fn.colorpicker = function ( option, val ) {
+	$.fn.colorpicker = function (option, val) {
 		return this.each(function () {
 			var $this = $(this),
-				data = $this.data('colorpicker'),
-				options = typeof option === 'object' && option;
+				data = $this.data("colorpicker"),
+				options = typeof option === "object" && option;
+
 			if (!data) {
-				$this.data('colorpicker', (data = new Colorpicker(this, $.extend({}, $.fn.colorpicker.defaults,options))));
+				$this.data("colorpicker", data = new Colorpicker(this, $.extend({}, $.fn.colorpicker.defaults,options)));
 			}
-			if (typeof option === 'string') data[option](val);
+			if (typeof option === "string") {data[option](val);}
 		});
 	};
 
 	$.fn.colorpicker.defaults = {
 	};
-	
+
 	$.fn.colorpicker.Constructor = Colorpicker;
-	
+
 	var CPGlobal = {
-	
+
 		// translate a format from Color object to a string
 		translateFormats: {
-			'rgb': function(){
+			"rgb": function() {
 				var rgb = this.color.toRGB();
-				return 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')';
+
+				
+return "rgb("+rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
 			},
-			
-			'rgba': function(){
+
+			"rgba": function() {
 				var rgb = this.color.toRGB();
-				return 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+rgb.a+')';
+
+				
+return "rgba("+rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + rgb.a + ')';
 			},
-			
-			'hsl': function(){
+
+			"hsl": function() {
 				var hsl = this.color.toHSL();
-				return 'hsl('+Math.round(hsl.h*360)+','+Math.round(hsl.s*100)+'%,'+Math.round(hsl.l*100)+'%)';
+
+				
+return "hsl("+Math.round(hsl.h * 360) + ',' + Math.round(hsl.s * 100) + '%,' + Math.round(hsl.l * 100) + '%)';
 			},
-			
-			'hsla': function(){
+
+			"hsla": function() {
 				var hsl = this.color.toHSL();
-				return 'hsla('+Math.round(hsl.h*360)+','+Math.round(hsl.s*100)+'%,'+Math.round(hsl.l*100)+'%,'+hsl.a+')';
+
+				
+return "hsla("+Math.round(hsl.h * 360) + ',' + Math.round(hsl.s * 100) + '%,' + Math.round(hsl.l * 100) + '%,' + hsl.a + ')';
 			},
-			
-			'hex': function(){
-				return  this.color.toHex();
+
+			"hex": function() {
+				return this.color.toHex();
 			}
 		},
-		
+
 		sliders: {
 			saturation: {
 				maxLeft: 100,
 				maxTop: 100,
-				callLeft: 'setSaturation',
-				callTop: 'setLightness'
+				callLeft: "setSaturation",
+				callTop: "setLightness"
 			},
-			
+
 			hue: {
 				maxLeft: 0,
 				maxTop: 100,
 				callLeft: false,
-				callTop: 'setHue'
+				callTop: "setHue"
 			},
-			
+
 			alpha: {
 				maxLeft: 0,
 				maxTop: 100,
 				callLeft: false,
-				callTop: 'setAlpha'
+				callTop: "setAlpha"
 			}
 		},
-		
+
 		// HSBtoRGB from RaphaelJS
 		// https://github.com/DmitryBaranovskiy/raphael/
-		RGBtoHSB: function (r, g, b, a){
+		RGBtoHSB (r, g, b, a){
 			r /= 255;
 			g /= 255;
 			b /= 255;
@@ -433,8 +440,8 @@
 			S = C === 0 ? 0 : C / V;
 			return {h: H||1, s: S, b: V, a: a||1};
 		},
-		
-		HueToRGB: function (p, q, h) {
+
+		HueToRGB (p, q, h) {
 			if (h < 0)
 				h += 1;
 			else if (h > 1)
@@ -449,8 +456,8 @@
 			else
 				return p;
 		},
-	
-		HSLtoRGB: function (h, s, l, a)
+
+		HSLtoRGB (h, s, l, a)
 		{
 			if (s < 0) {
 				s = 0;
@@ -473,14 +480,14 @@
 			var b = Math.round(CPGlobal.HueToRGB(p, q, tb) * 255);
 			return [r, g, b, a||1];
 		},
-		
+
 		// a set of RE's that can match strings and generate color tuples.
 		// from John Resig color plugin
 		// https://github.com/jquery/jquery-color/
 		stringParsers: [
 			{
 				re: /rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
-				parse: function( execResult ) {
+				parse( execResult ) {
 					return [
 						execResult[ 1 ],
 						execResult[ 2 ],
@@ -488,9 +495,10 @@
 						execResult[ 4 ]
 					];
 				}
-			}, {
+			},
+{
 				re: /rgba?\(\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
-				parse: function( execResult ) {
+				parse( execResult ) {
 					return [
 						2.55 * execResult[1],
 						2.55 * execResult[2],
@@ -498,28 +506,31 @@
 						execResult[ 4 ]
 					];
 				}
-			}, {
+			},
+{
 				re: /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,
-				parse: function( execResult ) {
+				parse( execResult ) {
 					return [
 						parseInt( execResult[ 1 ], 16 ),
 						parseInt( execResult[ 2 ], 16 ),
 						parseInt( execResult[ 3 ], 16 )
 					];
 				}
-			}, {
+			},
+{
 				re: /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/,
-				parse: function( execResult ) {
+				parse( execResult ) {
 					return [
 						parseInt( execResult[ 1 ] + execResult[ 1 ], 16 ),
 						parseInt( execResult[ 2 ] + execResult[ 2 ], 16 ),
 						parseInt( execResult[ 3 ] + execResult[ 3 ], 16 )
 					];
 				}
-			}, {
+			},
+{
 				re: /hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
-				space: 'hsla',
-				parse: function( execResult ) {
+				space: "hsla",
+				parse( execResult ) {
 					return [
 						execResult[1]/360,
 						execResult[2] / 100,
@@ -529,12 +540,12 @@
 				}
 			}
 		],
-		template: '<div class="colorpicker dropdown-menu">'+
-							'<div class="colorpicker-saturation"><i><b></b></i></div>'+
-							'<div class="colorpicker-hue"><i></i></div>'+
-							'<div class="colorpicker-alpha"><i></i></div>'+
-							'<div class="colorpicker-color"><div /></div>'+
-						'</div>'
+		template: "<div class=\"colorpicker dropdown-menu\">"+
+							"<div class=\"colorpicker-saturation\"><i><b></b></i></div>"+
+							"<div class=\"colorpicker-hue\"><i></i></div>"+
+							"<div class=\"colorpicker-alpha\"><i></i></div>"+
+							"<div class=\"colorpicker-color\"><div /></div>"+
+						"</div>"
 	};
 
-}( window.jQuery )
+}(window.jQuery));
