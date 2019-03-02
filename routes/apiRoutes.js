@@ -1,29 +1,46 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  //get all the timelines in the database
+  //Get all the timelines in the database
   app.get("/api/timelines", function(req, res) {
     db.Timeline.findAll({}).then(function(dbTimeline) {
       res.json(dbTimeline);
     });
   });
 
-  //create a new timeline in the database
+  // GET one of timeline by Id and include the Event 
+  app.get("/api/timelines/:id", function(req, res) {
+    db.Timeline.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [db.Event]
+    }).then(function(dbTimelines) {
+      res.json(dbTimelines);
+    });
+  });
+
+  //Create a new timeline in the database
   app.post("/api/timelines/", function(req, res) {
     db.Timeline.create(req.body).then(function(dbTimeline) {
       res.json(dbTimeline);
     });
   });
 
-  app.get("/api/timelines/:id", function(req, res) {
-    db.Timeline.findOne({
-      where: {
-        id: req.params.id
+  
+
+  app.get("/api/events/:timeline_id", function (req, res) {
+    db.Event.findAll({
+        where: {
+          TimelineId: req.params.timeline_id
+        },
+      include: [db.Timeline]
       }
-    }).then(function(dbTimelines) {
-      res.json(dbTimelines);
+    ).then(function (dbEvents) {
+      res.json(dbEvents);
     });
   });
+
 
   app.post("/api/events/:timeline_id", function(req, res) {
     db.Event.create(req.body).then(function(dbEvent) {

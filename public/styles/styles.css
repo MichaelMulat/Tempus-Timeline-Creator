@@ -1,3 +1,8 @@
+hr {
+  border-color: #ffffff;
+  padding: 10px;
+}
+
 #header {
   text-align: center;
   background-color: #213857;
@@ -9,14 +14,20 @@
   max-width: 200px;
 }
 
-h1, h2, h3, h4{
-  font-family: 'Raleway', sans-serif;
-  text-transform: uppercase;
-  color: #213857;
+.splash {
+  padding: 6em 0;
+  background-image: url("/images/plain.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
+/* h1, h2, h3, h4{
+  font-family: 'Raleway', sans-serif;
+} */
+
 .main-btn {
-  background-color: #213857;
+  background-color:#00BCD4;
   color: white;
   font-size: 1.5em;
   /* font-family: 'Fredoka One', cursive; */
@@ -36,13 +47,13 @@ h1, h2, h3, h4{
 
 .subheader{
   background-color: #00BCD4;
-  padding: 4em inherit;
   margin-bottom: 20px;
   text-align: center;
 
 }
 
 .subheading {
+  font-family: 'Righteous', cursive;
    color: #ffffff
 }
 
@@ -61,4 +72,54 @@ h1, h2, h3, h4{
 .input-group {
   color: white;
   background-color: none;
+}
+
+.white-text p{
+  color: white;
+  text-transform: uppercase;
+}
+
+/* form cards */
+
+.form-card-container {
+  margin-top: -100px;
+  max-width:60em;
+
+}
+
+
+/* Vis Timeline Custom Css */
+/* .vis-time-axis, .vis-foreground {
+  background-color: #213857
+}
+
+.vis-group {
+  background-color: #00BCD4;
+} */
+
+/* modified Forms */
+
+/* .form-control{
+  width: 70%;
+} */
+
+.custom-select {
+    border: none;
+    border-bottom: #ced4da 1px solid;  
+    border-radius: 0px;
+    font-weight: 300;
+    padding: 0px;
+    font-family: Roboto,sans-serif;
+}
+
+.custom-select:focus {
+    border: none;
+    outline: none;
+    box-shadow: 0 1px 0 0 #4285f4;
+    border-bottom: 1px solid #4285f4;
+}
+
+
+.custom-select option{
+  background-color: #213857;
 }

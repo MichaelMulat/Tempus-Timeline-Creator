@@ -1,9 +1,10 @@
 <div id="home">
 
-  <div class="jumbotron jumbotron-fluid subheader py-12">
+  <div class="jumbotron jumbotron-fluid subheader py-12 splash">
     <div class="container text-center">
       <h1 class="display-4 subheading">Online Timeline Maker</h1>
       <hr>
+       
       <a href="/create"><button class="btn main-btn" type="button" id="create-timeline"><i class="fas fa-plus"></i>
           Create A New Timeline</button>
         </div></a>
@@ -13,9 +14,9 @@
 
   <div class="container">
     <div class="row">
-      <h2 class="col display-5 ">All Timelines</h2>
+      <h2 class="col display-5 ">Timelines</h2>
 
-      <div class="col align-self-end">
+      {{!-- <div class="col align-self-end">
         <div class="form-group drop-down">
           <select class="form-control" id="drop-down-select">
             {{#each category}}
@@ -23,7 +24,7 @@
             {{/each}}
           </select>
         </div>
-      </div>
+      </div> --}}
     </div>
     {{!-- Select timeline by category dropdown --}}
     
@@ -38,8 +39,8 @@
               <p> {{timelineName}}
             </h5>
             <p class="card-text">{{description}}</p>
-            <a href="/timeline/{{id}}" class="btn">View</a>
-            <p class="card-text"><small class="text-muted">Created - {{createdAt}}</small></p>
+            <a href="/timelines/{{id}}" class="btn btn-success">View</a>
+            {{!-- <p class="card-text"><small class="text-muted">Created - {{createdAt}}</small></p> --}}
           </div>
         </div>
         {{/each}}
