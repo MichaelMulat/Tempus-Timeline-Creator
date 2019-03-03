@@ -16,10 +16,6 @@
             <p>{{timelines.description}}</p>
 
             <div class=" d-flex justify-content-between">
-                {{!-- <div>
-                    <h4 class="mini-header">Events in the Timeline</h4>
-                </div>
-             --}}
             
                 <div class="event-buttons">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-event-modal">
@@ -81,6 +77,7 @@
                     <div class="md-form">
                         <input type="text" id="event" class="form-control">
                         <label for="event">Event Name (required)</label>
+                        <span class="error-text" data-error="wrong" data-name="event"></span>
                     </div>
 
                     <div class="md-form">
@@ -94,13 +91,13 @@
 
                         <div class="input-group-append">
                             <span class="input-group-text md-addon">Start Date (required)</span>
+                            <span class="error-text" data-error="wrong" data-name="event"></span>
                         </div>
                     </div>
 
                     <div class="md-form input-group mb-3">
 
                         <input type="date" class="form-control custom-select" aria-describedby="end-date" id="end-date">
-
                         <div class="input-group-append">
                             <span class="input-group-text md-addon">End Date (Optional)</span>
                         </div>
@@ -156,7 +153,7 @@
             TimelineId: $("#timeline-edit-header").data("id")
         };
 
-        console.log(newEvent);
+        // console.log(newEvent);
         // Send the POST request.
         $.ajax({
             method: "POST",
@@ -164,10 +161,19 @@
             data: newEvent
         }).then(function () {
             location.reload();
+        }).fail(function(data) {
+            console.log('fail', data.responseJSON)
+            data.responseJSON.errors.forEach(function(error) {
+                var field = error.path
+                console.log(field)
+                var errorElement = $(`[data-name=${field}]`)
+                console.log(errorElement.length)
+                console.log(error.message)
+                errorElement.text(error.message)
+            })
         });
     });
-
-
+    
     var $deleteEventButton = $(".delete-event-btn");
     console.log('$deleteEventButton', $deleteEventButton.length)
     

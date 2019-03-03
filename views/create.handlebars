@@ -15,11 +15,13 @@
                 <div class="md-form">
                     <input type="text" id="timeline-name" class="form-control">
                     <label for="timeline-name">Timeline Name (required)</label>
+                    <span class="error-text" data-error="wrong" data-name="timelineName"></span>
                 </div>
 
                 <div class="md-form">
                     <input type="text" id="timeline-description" class="form-control">
                     <label for="timeline-description">Description (required)</label>
+                    <span class="error-text" data-error="wrong" data-name="timelineDescription"></span>
                 </div>
 
                 <div class="md-form">
@@ -84,10 +86,22 @@
             url: "/api/timelines",
             data: newTimeline
         }).then(function (data) {
+            console.log('foo')
             console.log(data.id)
             var timeline_id = data.id;
             window.location.href = "/edit/" + timeline_id;
-        });
+        }).fail(function(data) {
+            console.log('fail', data.responseJSON)
+            data.responseJSON.errors.forEach(function(error) {
+                var field = error.path
+                console.log(field)
+                var errorElement = $(`[data-name=${field}]`)
+                console.log(errorElement.length)
+                console.log(error.message)
+                errorElement.text(error.message)
+            })
+            
+        })
     });
 
     var $createCategoryButton = $("#create-new-category");
