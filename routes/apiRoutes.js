@@ -27,8 +27,6 @@ module.exports = function (app) {
     });
   });
 
-
-
   app.get("/api/events/:timeline_id", function (req, res) {
     db.Event.findAll({
       where: {
@@ -46,6 +44,8 @@ module.exports = function (app) {
       res.json(dbEvent);
     });
   });
+
+  // Delete an event 
   app.delete("/api/events/:event_id", function (req, res) {
     db.Event.destroy({
       where: {
@@ -63,9 +63,23 @@ module.exports = function (app) {
         id: req.params.id
       }
     }).then(function (
-      dbExample
+      dbTimeline
     ) {
-      res.json(dbExample);
+      res.json(dbTimeline);
+    });
+  });
+
+
+  app.get("/api/categories/", function (req, res) {
+    db.Category.findAll({}).then(function (dbCat) {
+      res.json(dbCat);
+    });
+  });
+
+  //Create a new category in the database
+  app.post("/api/categories/", function (req, res) {
+    db.Category.create(req.body).then(function (dbcategories) {
+      res.json(dbcategories);
     });
   });
 };

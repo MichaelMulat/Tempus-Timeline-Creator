@@ -1,8 +1,25 @@
 module.exports = function (sequelize, DataTypes) {
   var Timeline = sequelize.define("Timeline", {
-    timelineName: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    imageUrl: DataTypes.TEXT
+    timelineName: {
+      type: DataTypes.TEXT,
+      // validate: {
+      allowNull: false,           // won't allow null
+      notEmpty: true              // don't allow empty strings
+      // }
+    },
+    description: {
+      type: DataTypes.TEXT,
+      // validate: {
+      allowNull: true,          // allow null
+      notEmpty: false           // allow empty strings
+      // }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true              // checks for url format (http://foo.com)
+      }
+    }
   });
   Timeline.associate = function (models) {
     Timeline.hasMany(models.Event);

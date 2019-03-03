@@ -1,15 +1,35 @@
-<div class="jumbotron">
-        <div class="container">
-            <div class="row">
-                <h3 class="display-4">{{timelines.timelineName}}</h3>
-                <h5>{{timelines.description}}</h5>
+<div class="subheader splash">
+
+</div> {{!-- end subheader div --}}
+<div class="container form-card-container">
+    <div class="card">
+        <div class=" card-header">
+            <div id="timeline-edit-header" data-id="{{timelines.id}}">
+                {{id}} {{timelines.timelineName}}
+            </div>
+            <p>{{timelines.description}}</p>
+
+        </div>
+
+        <div class=" d-flex justify-content-between">
+            <div class="event-buttons">
+                
+                    <a class="btn btn-primary edit-timeline-btn" href="/edit/{{timelines.id}}"> <i
+                            class="fas fa-edit"></i> Edit Timeline</a>
+                
+                    <button class="btn btn-danger delete-timeline-btn" data-id="{{timelines.id}}"><i
+                            class="fas fa-trash-alt"></i> Delete</button>
             </div>
         </div>
-        
     </div>
-<div class="container">
-    <div id="visualization" data-id="{{timelines.id}}"></div>
+
+    <div class="container vis-container">
+        <div id="visualization" data-id="{{timelines.id}}"></div>
+    </div>
 </div>
+
+
+
 
 
 <script>
@@ -23,11 +43,11 @@
         var events = response.Events;
         var eventData = [];
         for (i = 0; i < events.length; i++) {
-            var formatedStart = moment(events[i].start_date).format("YYYY-MM-DD"); 
+            var formatedStart = moment(events[i].start_date).format("YYYY-MM-DD");
             var newObj = {
                 id: i + 1,
                 content: events[i].event,
-                start:  formatedStart
+                start: formatedStart
             }
             eventData.push(newObj);
         }
@@ -40,9 +60,23 @@
         var options = {};
 
         if (container && eventData && eventData.length) {
-        var timeline = new vis.Timeline(container, items, options);
-         }
+            var timeline = new vis.Timeline(container, items, options);
+        }
     });
 
+    // Delete timeline by id
+
+    var $deleteTimelineButton = $(".delete-timeline-btn");
+        
+        $deleteTimelineButton.on("click", function (event) {
+            console.log("event-deleted")
+            $.ajax({
+                method: "DELETE",
+                url: "/api/timelines/" + timeline_id,
+            }).then(function (data) {
+                console.log('data', data)
+                window.location.href = "/";
+            });
+        });
 
 </script>

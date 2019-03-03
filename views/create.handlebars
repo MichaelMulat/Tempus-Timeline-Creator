@@ -27,24 +27,31 @@
                     <label for="timeline-image-url">Image url</label>
                 </div>
 
-                <div class="input-group mb-3">
-                    <select class="custom-select md-form form" id="inputGroupSelect02">
-                        <option data-id="0">Choose a Category</option>
-                        {{#each categories}}
-                        <option data-id="{{id}}">{{category}}</option>
-                        {{/each}}
-                    </select>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button"id="create-category-btn"> + Add Category</button>
+
+                <div class="form-row">
+                    <div class="col">
+                        <select class="custom-select md-form form" id="inputGroupSelect02">
+                            <option data-id="0">Choose a Category</option>
+                            {{#each categories}}
+                            <option data-id="{{id}}">{{category}}</option>
+                            {{/each}}
+                        </select>
                     </div>
+                    <div class="col">
+                        <div class="md-form input-group mb-3">
+                            <input type="text" class="form-control form-input-label" placeholder="Create a new category"
+                                id="new-category-input">
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-secondary m-0 px-3" type="button"
+                                    id="create-new-category">Add New</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="create-timeline-btn">Create Timeline</button>
-
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -82,5 +89,28 @@
             window.location.href = "/edit/" + timeline_id;
         });
     });
+
+    var $createCategoryButton = $("#create-new-category");
+
+    $createCategoryButton.on("click", function (event) {
+        event.preventDefault();
+
+        console.log("Clicked ")
+        var newCategory = {
+            category: $("#new-category-input").val().trim()
+        }
+
+        console.log(newCategory)
+        
+        $.ajax({
+            
+            method: "POST",
+            url: "/api/categories",
+            data: newCategory
+        }).then(function (data) {
+            console.log(data.id)
+            location.reload();
+        });
+    })
 
 </script>
