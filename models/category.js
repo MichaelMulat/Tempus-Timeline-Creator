@@ -1,8 +1,14 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   var Categories = sequelize.define("Category", {
-    category: DataTypes.STRING
+    category: {
+      type: DataTypes.STRING,
+      validate: {
+        defaultValue: "Other"         // set a default value to other
+      }
+    }
   });
-  Categories.associate = function (models) {
+
+  Categories.associate = function(models) {
     Categories.hasMany(models.Timeline);
   };
   return Categories;
