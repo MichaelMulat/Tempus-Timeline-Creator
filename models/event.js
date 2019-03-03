@@ -1,42 +1,40 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   var Event = sequelize.define("Event", {
     event: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'This field is required.'
-        }             
-      } 
+          msg: "This field is required."
+        }
+      }
     },
     event_type: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     },
     start_date: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
         isDate: {
-          msg: 'This field is required.'
+          msg: "This field is required."
+        }
       }
-      // validate: {
-      //   isDate: true,             // only allow date strings
-      // }
     },
     end_date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATE
     },
     location: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     },
     color: {
       type: DataTypes.STRING,
       validate: {
-        defaultValue: "#ffffff"   // default Value color
+        defaultValue: "#ffffff" // default Value color
       }
     },
     source: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     }
   });
 
@@ -45,4 +43,4 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   return Event;
-}
+};

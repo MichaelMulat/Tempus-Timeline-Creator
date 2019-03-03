@@ -87,8 +87,51 @@ hr {
 
 }
 
+#timeline-edit-header{
+  font-family: 'Righteous';
+  font-weight: 500;
+  font-size: 3em;
+  color: #0577a6 
+}
+.mini-header {
+  
+    font-weight: 500;
+    color: #0577a6  
+}
+
+.modal-title  {
+  font-weight: 500;
+    color: #0577a6 
+}
+
+
+.btn-primary {
+  background-color: #0075a7 !important; 
+}
+
+.btn-success {
+  background-color: #009688 !important; 
+}
+
 
 /* Vis Timeline Custom Css */
+
+.vis-container{
+  margin-top: 30px;
+}
+
+.vis-item{
+    color: #ffffff !important;
+    border-color: #213857 !important;
+    border-width: 1px;
+    background-color:  #213857 !important;
+    display: inline-block;
+    z-index: 1;
+}
+
+.vis-item.vis-box {
+  border-radius: 0 !important;
+}
 /* .vis-time-axis, .vis-foreground {
   background-color: #213857
 }
@@ -121,5 +164,9 @@ hr {
 
 
 .custom-select option{
-  background-color: #213857;
+  color: #757575;
+}
+
+::placeholder {
+  color: red;
 }

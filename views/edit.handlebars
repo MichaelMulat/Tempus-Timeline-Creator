@@ -1,59 +1,63 @@
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <h3 class="display-4" id="timeline-edit-header" data-id="{{timelines.id}}">
-                {{id}} {{timelines.timelineName}}
-            </h3>
-            <hr>
-            <p>{{timelines.description}}</p>
-        </div>
-    </div>
+<div class="subheader splash">
 
-</div>
+</div> {{!-- end subheader div --}}
 
-<div class="container">
+
+
+<div class="container form-card-container">
     <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col">
-                    <h4>Events</h4>
-                </div>
-                <div class="col">
+
+        {{!-- <img class="card-img-top" src="{{timelines.imageUrl}}" alt="Card image cap"> --}}
+
+        <div class=" card-header">
+            <div id="timeline-edit-header" data-id="{{timelines.id}}">
+                {{id}} {{timelines.timelineName}}
+            </div>
+            <p>{{timelines.description}}</p>
+
+            <div class=" d-flex justify-content-between">
+            
+                <div class="event-buttons">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-event-modal">
-                        Add Event
+                        + Add Event
                     </button>
-                    <a type="button" class="btn btn-success" href="/timelines/{{timelines.id}}">
-                        Done
+                    <a class="btn btn-success" href="/timelines/{{timelines.id}}">
+                        <i class="fas fa-check"></i>  Done
                     </a>
                 </div>
             </div>
+        
         </div>
 
+        
+
         <ul class="event-list list-group">
-
-
+        
+        
             {{#each timelines.Events}}
-
+        
             <li class="list-group-item d-flex justify-content-between align-items-center" data_id="{{id}}">
-
-                <h4 class="event-name-div">{{event}}</h4>
-                <p class="event-type-div">{{event_type}}</p>
-
-
+                <div class="event-info">
+                    <h4 class="event-name-div">{{event}}</h4>
+                    <p class="event-type-div">{{event_type}}</p>
+                </div>
+                
+                <div class="dates">
+                    <p class="start-date-info">{{start_date}}</p>
+                </div>
+        
+        
                 <span class="buttons-for-events">
-
-                    <button class="btn btn-primary edit-event-btn"> <i class="fas fa-edit"></i></i></button>
-
-
                     <button class="btn btn-danger delete-event-btn" data-id="{{id}}"> <i class="fas fa-trash-alt"></i></button>
-
                 </span>
-
+        
             </li>
-
+        
             {{/each}}
         </ul>
     </div>
+
+    
 </div>
 
 {{!-- MODAL SECTION --}}
@@ -62,7 +66,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Create New Event</h5>
+                <h5 class="modal-title">Create New Event</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -70,37 +74,50 @@
             <div class="modal-body">
                 <form method="POST" role="form" class="new-event">
 
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Event Name *" id="event">
+                    <div class="md-form">
+                        <input type="text" id="event" class="form-control">
+                        <label for="event">Event Name (required)</label>
                         <span class="error-text" data-error="wrong" data-name="event"></span>
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Event Type" id="event-type">
+                    <div class="md-form">
+                        <input type="text" id="event-type" class="form-control">
+                        <label for="event-type">Event Type</label>
                     </div>
 
-                    <div class="form-group">
-                        <input type="date" class="form-control form-inputs" Placeholder="Start Date *" id="start-date">
-                        <span class="error-text" data-error="wrong" data-name="event"></span>
+                    <div class="md-form input-group mb-3">
+
+                        <input type="date" class="form-control custom-select" aria-describedby="start-date" id="start-date">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text md-addon">Start Date (required)</span>
+                            <span class="error-text" data-error="wrong" data-name="event"></span>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <input type="date" class="form-control form-inputs" Placeholder="End Date" id="end-date">
+                    <div class="md-form input-group mb-3">
+
+                        <input type="date" class="form-control custom-select" aria-describedby="end-date" id="end-date">
+                        <div class="input-group-append">
+                            <span class="input-group-text md-addon">End Date (Optional)</span>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" class="form-control form-inputs" Placeholder="Location" id="Location">
+                    <div class="md-form">
+                        <input type="text" id="Location" class="form-control">
+                        <label for="Location">Location (Optional)</label>
                     </div>
 
-                    <div class="form-group">
-                        <label for="Source">Info Source</label>
-                        <input type="text" class="form-control form-inputs" Placeholder="link url" id="source">
+                    <div class="md-form">
+                        <input type="text" id="source" class="form-control">
+                        <label for="source">Info Source Link (Optional)</label>
                     </div>
+
 
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="event-create-button">Add Event</button>
             </div>
         </div>
@@ -136,7 +153,7 @@
             TimelineId: $("#timeline-edit-header").data("id")
         };
 
-        console.log(newEvent);
+        // console.log(newEvent);
         // Send the POST request.
         $.ajax({
             method: "POST",
@@ -159,8 +176,8 @@
     
     var $deleteEventButton = $(".delete-event-btn");
     console.log('$deleteEventButton', $deleteEventButton.length)
+    
     $deleteEventButton.on("click", function (event) {
-        console.log("event-deleted")
         var $target = $(event.target)
         console.log($target)
         var event_id = $target.data('id')
