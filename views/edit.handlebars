@@ -72,6 +72,7 @@
 
                     <div class="form-group">
                         <input type="text" class="form-control form-inputs" Placeholder="Event Name *" id="event">
+                        <span class="error-text" data-error="wrong" data-name="event"></span>
                     </div>
 
                     <div class="form-group">
@@ -80,6 +81,7 @@
 
                     <div class="form-group">
                         <input type="date" class="form-control form-inputs" Placeholder="Start Date *" id="start-date">
+                        <span class="error-text" data-error="wrong" data-name="event"></span>
                     </div>
 
                     <div class="form-group">
@@ -142,5 +144,16 @@
             data: newEvent
         }).then(function () {
             location.reload();
-        });
+        }).fail(function(data) {
+            console.log('fail', data.responseJSON)
+            data.responseJSON.errors.forEach(function(error) {
+                var field = error.path
+                console.log(field)
+                var errorElement = $(`[data-name=${field}]`)
+                console.log(errorElement.length)
+                console.log(error.message)
+                errorElement.text(error.message)
+            })
+            
+        })
     });</script>

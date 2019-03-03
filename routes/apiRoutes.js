@@ -24,6 +24,8 @@ module.exports = function(app) {
   app.post("/api/timelines/", function(req, res) {
     db.Timeline.create(req.body).then(function(dbTimeline) {
       res.json(dbTimeline);
+    }).catch(function (err) {
+      res.status(500).send({ errors: err.errors })
     });
   });
 
@@ -45,6 +47,8 @@ module.exports = function(app) {
   app.post("/api/events/:timeline_id", function(req, res) {
     db.Event.create(req.body).then(function(dbEvent) {
       res.json(dbEvent);
+    }).catch(function (err) {
+      res.status(500).send({ errors: err.errors })
     });
   });
 
