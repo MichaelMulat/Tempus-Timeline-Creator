@@ -28,10 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT
     },
     color: {
-      type: DataTypes.STRING,
-      validate: {
-        defaultValue: "#ffffff" // default Value color
-      }
+      type: DataTypes.STRING
     },
     source: {
       type: DataTypes.TEXT
