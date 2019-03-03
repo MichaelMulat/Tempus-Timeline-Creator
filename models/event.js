@@ -37,9 +37,6 @@ module.exports = function (sequelize, DataTypes) {
     },
     source: {
       type: DataTypes.TEXT,
-      validate: {
-        isUrl: true,              // checks for url format (http://foo.com)
-      }
     }
   });
 
