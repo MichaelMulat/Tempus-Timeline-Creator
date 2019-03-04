@@ -11,7 +11,28 @@
         <div class="card-body">
             <!-- Timeline Name input -->
             <div class="form">
-
+                <div class="form-row">
+                    <div class="col">
+                        <select class="custom-select md-form form" id="catergory-select">
+                            <option data-id="0">Choose a Category</option>
+                            {{#each categories}}
+                            <option data-id="{{id}}">{{category}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <div class="md-form input-group mb-3">
+                            <input type="text" class="form-control form-input-label" placeholder="Create a new category"
+                                id="new-category-input">
+                            <div class="input-group-append">
+                                <button class="btn btn-md btn-secondary m-0 px-3" type="button" id="create-new-category">Add
+                                    New</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                
                 <div class="md-form">
                     <input type="text" id="timeline-name" class="form-control">
                     <label for="timeline-name">Timeline Name (required)</label>
@@ -27,29 +48,6 @@
                 <div class="md-form">
                     <input type="text" id="timeline-image-url" class="form-control">
                     <label for="timeline-image-url">Image url</label>
-                </div>
-
-
-                <div class="form-row">
-                    <div class="col">
-                        <select class="custom-select md-form form" id="catergory-select">
-                            <option data-id="0">Choose a Category</option>
-                            {{#each categories}}
-                            <option data-id="{{id}}">{{category}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="col">
-                        <div class="md-form input-group mb-3">
-                            <input type="text" class="form-control form-input-label" placeholder="Create a new category"
-                                id="new-category-input">
-                            <div class="input-group-append">
-                                <button class="btn btn-md btn-secondary m-0 px-3" type="button"
-                                    id="create-new-category">Add New</button>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <button type="submit" class="btn btn-primary" id="create-timeline-btn">Create Timeline</button>
