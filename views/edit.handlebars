@@ -96,14 +96,14 @@
                             <span class="error-text" data-error="wrong" data-name="event"></span>
                         </div>
                     </div>
-
+{{!-- 
                     <div class="md-form input-group mb-3">
 
-                        <input type="date" class="form-control custom-select" aria-describedby="end-date" value="" id="end-date">
+                        <input type="date" class="form-control custom-select" aria-describedby="end-date" id="end-date">
                         <div class="input-group-append">
                             <span class="input-group-text md-addon">End Date (Optional)</span>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="md-form">
                         <input type="text" id="Location" class="form-control">
@@ -139,11 +139,15 @@
     var $createEventButton = $("#event-create-button");
 
     $createEventButton.on("click", function (event) {
-        console.log("button clicked")
         var eventColor = $('select[name="event-color"] option:selected').data('color')
-        console.log(eventColor);
-        console.log($("#end-date")
-            .val());
+        var startDate = $("#start-date")
+            .val();
+        // var endDate = $("#end-date").val();
+
+        // console.log("end date", endDate);
+
+        // if (endDate == "null"){endDate = startDate;}
+
         var newEvent = {
             event: $("#event")
                 .val()
@@ -153,11 +157,9 @@
                 .val()
                 .trim(),
 
-            start_date: $("#start-date")
-                .val(),
+            start_date: startDate,
 
-            end_date: $("#end-date")
-                .val(),
+            // end_date: endDate,
 
             location: $("#Location")
                 .val(),

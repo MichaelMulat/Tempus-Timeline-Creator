@@ -21,9 +21,10 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    end_date: {
-      type: DataTypes.DATE,
-    },
+    // end_date: {
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
+    // },
     location: {
       type: DataTypes.TEXT
     },
