@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     end_date: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
     },
     location: {
       type: DataTypes.TEXT

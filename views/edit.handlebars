@@ -99,7 +99,7 @@
 
                     <div class="md-form input-group mb-3">
 
-                        <input type="date" class="form-control custom-select" aria-describedby="end-date" id="end-date">
+                        <input type="date" class="form-control custom-select" aria-describedby="end-date" value="" id="end-date">
                         <div class="input-group-append">
                             <span class="input-group-text md-addon">End Date (Optional)</span>
                         </div>
@@ -142,6 +142,8 @@
         console.log("button clicked")
         var eventColor = $('select[name="event-color"] option:selected').data('color')
         console.log(eventColor);
+        console.log($("#end-date")
+            .val());
         var newEvent = {
             event: $("#event")
                 .val()

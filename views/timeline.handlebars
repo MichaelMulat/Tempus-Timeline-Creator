@@ -40,6 +40,7 @@
 
     // Make ajax get request to endpoint
     $.get('/api/timelines/' + timeline_id, function (response) {
+        console.log(response)
         if (response.length) {
             var events = response.Events;
             var eventData = [];
@@ -54,10 +55,10 @@
                     className: events[i].color
                 }
 
-                if (events[i].end_date.length) {
-                    formatedEnd = moment(events[i].end_date).format("YYYY-MM-DD");
-                    newObj.end = formatedEnd;
-                }
+                // if (events[i].end_date.length) {
+                //     formatedEnd = moment(events[i].end_date).format("YYYY-MM-DD");
+                //     newObj.end = formatedEnd;
+                // }
 
                 eventData.push(newObj);
             }
