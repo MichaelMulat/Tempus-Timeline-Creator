@@ -21,17 +21,15 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    end_date: {
-      type: DataTypes.DATE
-    },
+    // end_date: {
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
+    // },
     location: {
       type: DataTypes.TEXT
     },
     color: {
-      type: DataTypes.STRING,
-      validate: {
-        defaultValue: "#ffffff" // default Value color
-      }
+      type: DataTypes.STRING
     },
     source: {
       type: DataTypes.TEXT

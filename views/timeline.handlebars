@@ -40,17 +40,29 @@
 
     // Make ajax get request to endpoint
     $.get('/api/timelines/' + timeline_id, function (response) {
-        var events = response.Events;
-        var eventData = [];
-        for (i = 0; i < events.length; i++) {
-            var formatedStart = moment(events[i].start_date).format("YYYY-MM-DD");
-            var newObj = {
-                id: i + 1,
-                content: events[i].event,
-                start: formatedStart
+        console.log(response)
+        
+            var events = response.Events;
+            var eventData = [];
+
+            for (i = 0; i < events.length; i++) {
+                var formatedEnd;
+                var formatedStart = moment(events[i].start_date).format("YYYY-MM-DD");
+                var newObj = {
+                    id: i + 1,
+                    content: events[i].event,
+                    start: formatedStart,
+                    className: events[i].color
+                }
+
+                 //if (events[i].end_date.length) {
+                 //    formatedEnd = moment(events[i].end_date).format("YYYY-MM-DD");
+                 //    newObj.end = formatedEnd;
+                 // }
+
+                eventData.push(newObj);
             }
-            eventData.push(newObj);
-        }
+        
         console.log(eventData);
 
         var items = new vis.DataSet(eventData)
